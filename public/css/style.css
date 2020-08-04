@@ -1,0 +1,41 @@
+.card-header {
+    background-color: #1069D9 !important;
+    color: white;
+}
+
+/* NAV MENU */
+
+.nav li.nav-header {
+    padding-left: 8px !important;
+    background-color: #3f474e; !important;
+    margin: 0 !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+
+/* END NAV MENU */
+
+
+/* TABLE */
+.table-hover tbody tr:hover td,
+.table-hover tbody tr:hover th {
+    background-color: #AFCFF7;
+    /* color: white; */
+}
+
+/* END TABLE */
+
+/* FOOTER */
+footer {
+    padding: 0 !important;
+}
+/* END FOOTER */
+
+.toasts-width {
+    width: 350px !important;
+}
+
+.a-no-color > a,
+.a-no-color a:hover {
+    color: black;
+}
