@@ -27,7 +27,7 @@ Homestead.json
 
 
 
-
+.idea
 .vscode
 /node_modules
 /public/hot
