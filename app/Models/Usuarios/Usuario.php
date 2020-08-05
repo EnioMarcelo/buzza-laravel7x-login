@@ -7,7 +7,7 @@ use App\User;
 class Usuario extends User
 {
     protected $table = 'users';
-    protected $keyType = 'string';
+    public $incrementing = false;
 
     public function setNameAttribute($value): void
     {

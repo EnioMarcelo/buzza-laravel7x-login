@@ -12,7 +12,6 @@ use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class UsuarioController extends Controller
@@ -26,6 +25,8 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
+        setcookie('origin_ref', $request->fullUrl());
+
         /**
          * QUANTIADADE DE REGISTROS POR PÁGINA
          */
@@ -70,7 +71,7 @@ class UsuarioController extends Controller
     public function store(UsuarioRequest $request)
     {
         $usuario = new Usuario();
-        $usuario->id = (string) Str::orderedUuid();
+        $usuario->id = random_int(100000000, 999999999) . random_int(100000000, 999999999);
         $usuario->name = $request->name;
         $usuario->email = $request->email;
         $usuario->active = $request->active;
@@ -123,7 +124,7 @@ class UsuarioController extends Controller
         }
 
         if ($usuario->save()) {
-            return redirect($request->url)->with("success", "Usuário atualizado com sucesso.");
+            return redirect( $_COOKIE['origin_ref'] )->with("success", "Usuário atualizado com sucesso.");
         }
 
     }
@@ -171,6 +172,9 @@ class UsuarioController extends Controller
             $usuario->active = (bool)$usuario->active ? 1 : 0;
 
             if ($usuario->save()) {
+
+                \App\Models\Session::where('user_id', $usuario->id)->delete();
+
                 return response()->json([
                     'success' => 'Status do Usuário atualizado com sucesso.'
                 ]);

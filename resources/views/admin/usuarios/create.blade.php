@@ -86,7 +86,7 @@
 
                     <div class="inputgroup">
                         <div class="col">
-                            <a href="{{ route('admin.usuarios') }}" class="btn btn-outline-secondary margin-right-5">
+                            <a href="{{ $_COOKIE['origin_ref'] }}" class="btn btn-outline-secondary margin-right-5">
                                 Cancelar</a>
                         </div>
                     </div>

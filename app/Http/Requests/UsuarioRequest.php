@@ -24,10 +24,27 @@ class UsuarioRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'name' => 'required',
-            'email' => 'required|email',
-        ];
+
+        switch ($this->method()) {
+            case 'POST':
+            {
+                return [
+                    'name' => 'required',
+                    'email' => "required|email|unique:users,email,$this->id,id"
+                ];
+            }
+            case 'PUT':
+            case 'PATCH':
+            {
+                return [
+                    'name' => 'required',
+                    'email' => "required|email|unique:users,email,$this->id,id",
+                ];
+            }
+            default:
+                break;
+        }
+
     }
 
     public function attributes()

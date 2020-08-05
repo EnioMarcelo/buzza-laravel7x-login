@@ -10,6 +10,7 @@ class UsersSeeder extends Seeder
      * Run the database seeds.
      *
      * @return void
+     * @throws Exception
      */
     public function run()
     {
@@ -19,6 +20,7 @@ class UsersSeeder extends Seeder
 
         DB::table('users')
             ->insert([
+                'id' => random_int(100000000, 999999999) . random_int(100000000, 999999999),
                 'name' => 'Enio Marcelo Buzaneli',
                 'email' => 'eniomarcelo@gmail.com',
                 'password' => '$2y$10$laqD/Nuk/7Ln1bIi1YlgAOtk1Ba/VRG12MQAvDnl6POhRSJEKr/RS',
@@ -34,6 +36,7 @@ class UsersSeeder extends Seeder
 
             DB::table('users')
                 ->insert([
+                    'id' => random_int(100000000, 999999999) . random_int(100000000, 999999999),
                     'name' => mb_strtoupper($faker->name),
                     'email' => $faker->unique()->safeEmail,
                     'password' => $faker->password(),

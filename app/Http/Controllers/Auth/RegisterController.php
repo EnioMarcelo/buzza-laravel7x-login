@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -44,7 +47,7 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -59,7 +62,7 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\User
      */
     protected function create(array $data)
@@ -69,5 +72,43 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        /**
+         * Retorna para a tela de Login com uma mensagem avisando que o cadastro foi efetuado
+         * e pede para aguardar a liberação do Admin do sistema.
+         *
+         * Changed By: Enio Marcelo Buzaneli
+         * Date: 04/08/2020
+         */
+        return redirect('/login')->with([
+            'flash.message_title' => 'Sua conta foi criada com sucesso!',
+            'flash.message_text' => 'Aguarde ser desbloqueada pelo Administrador do Sistema.',
+            'flash.message_class' => 'info'
+        ]);
+//        $this->guard()->login($user);
+
+//        if ($response = $this->registered($request, $user)) {
+//            return $response;
+//        }
+//
+//        return $request->wantsJson()
+//            ? new Response('', 201)
+//            : redirect($this->redirectPath());
+
+        /** --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- **/
     }
 }
