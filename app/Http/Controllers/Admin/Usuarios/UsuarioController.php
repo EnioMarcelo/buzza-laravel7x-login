@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UsuarioRequest;
 use App\Models\Usuario;
+use App\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -11,11 +12,20 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
+use Spatie\Permission\Models\Role;
 
 class UsuarioController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->title_icon = 'fa fa-user';
+        $this->title_page = 'Usuário';
+
+    }
 
     /**
      * Display a listing of the resource.
@@ -25,7 +35,10 @@ class UsuarioController extends Controller
      */
     public function index(Request $request)
     {
-        setcookie('origin_ref', $request->fullUrl());
+        /**
+         * SET SESSION FULL URL ORIGIN CALL
+         */
+        session()->put('origin_ref', $request->fullUrl());
 
         /**
          * QUANTIADADE DE REGISTROS POR PÁGINA
@@ -44,6 +57,8 @@ class UsuarioController extends Controller
         }
 
         return view('admin.usuarios.index', [
+            'title_icon' => $this->title_icon,
+            'title_page' => $this->title_page,
             'usuarios' => $usuarios,
             'page' => (empty($request->page) ? 1 : $request->page),
             'per_page' => $per_page,
@@ -58,8 +73,10 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        return view('admin.usuarios.create');
-
+        return view('admin.usuarios.create', [
+            'title_icon' => $this->title_icon,
+            'title_page' => $this->title_page
+        ]);
     }
 
     /**
@@ -103,6 +120,8 @@ class UsuarioController extends Controller
     {
         $usuario = Usuario::find($usuario->id);
         return view('admin.usuarios.edit', [
+            'title_icon' => $this->title_icon,
+            'title_page' => $this->title_page,
             'usuario' => $usuario
         ]);
     }
@@ -124,9 +143,8 @@ class UsuarioController extends Controller
         }
 
         if ($usuario->save()) {
-            return redirect( $_COOKIE['origin_ref'] )->with("success", "Usuário atualizado com sucesso.");
+            return redirect(session()->get('origin_ref'))->with("success", "Usuário atualizado com sucesso.");
         }
-
     }
 
     /**
@@ -144,6 +162,17 @@ class UsuarioController extends Controller
             ]);
         }
 
+
+        /**
+         * DELETE PERMISSION SPATIE ACL USERS
+         */
+        DB::table('model_has_permissions')->where('model_id', $usuario->id)->delete();
+        DB::table('model_has_roles')->where('model_id', $usuario->id)->delete();
+
+
+        /**
+         * DELETE USER
+         */
         Usuario::find($usuario->id)->delete($usuario->id);
 
         Session::flash('success', 'Registro deletado com sucesso.');
@@ -180,5 +209,58 @@ class UsuarioController extends Controller
                 ]);
             }
         }
+    }
+
+
+    public function role(Usuario $usuario)
+    {
+        $this->title_icon = 'fa fa-stack-overflow';
+        $this->title_page = 'Perfil do Usuário: ' . '<b>' . $usuario->name . '</b>';
+
+        $roles = Role::all();
+        $usuario = User::where('id', $usuario->id)->first();
+
+        foreach ($roles as $role) {
+
+            if ($usuario->hasRole($role->name)) {
+                $role->can = true;
+            } else {
+                $role->can = false;
+            }
+        }
+
+
+        return view('admin.usuarios.roles', [
+            'title_icon' => $this->title_icon,
+            'title_page' => $this->title_page,
+            'roles' => $roles,
+            'usuario' => $usuario
+        ]);
+    }
+
+
+    public function roleSync(Request $request)
+    {
+        $usuarioId = $request->id;
+
+        $rolesRequest = $request->except(['_token', '_method', 'url', 'id']);
+
+        if (Auth::user()->hasRole('Super Administrator') && $usuarioId == Auth::user()->id) {
+            $rolesRequest[1] = 'on' ;
+        }
+
+        foreach ($rolesRequest as $key => $value) {
+            $roles[] = Role::where('id', $key)->first();
+        }
+
+        $usuario = User::where('id', $usuarioId)->first();
+
+        if (!empty($roles)) {
+            $usuario->syncRoles($roles);
+        } else {
+            $usuario->syncRoles(null);
+        }
+
+        return redirect()->route('admin.usuario.role', ['usuario' => $usuario->id]);
     }
 }

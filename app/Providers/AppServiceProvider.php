@@ -8,6 +8,9 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Schema;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use \Illuminate\Support\Facades\Auth;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Dispatcher $events)
     {
+        //https://github.com/jeroennoten/Laravel-AdminLTE/wiki/8.-Menu-Configuration
 
         Schema::defaultStringLength(191);
         setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'pt_BR.utf-8', 'portuguese');
@@ -45,15 +49,16 @@ class AppServiceProvider extends ServiceProvider
                     'url' => '/admin',
                     'icon' => 'fa fa-fw fa-tachometer',
                     'label_color' => $_label_color,
-                    'active' => ['/','/home'],
+                    'active' => ['/', '/home']
                 ],
                 [
                     'text' => 'Clientes',
-                    'url' => 'admin/clientes',
+                    'url' => 'clientes',
                     'icon' => 'far fa-fw fa-user ',
                     'label' => Cliente::count(),
                     'label_color' => $_label_color,
-                    'active' => ['admin/cliente/*'],
+                    'active' => ['cliente/*'],
+                    'can' => ['Super Administrator', 'Clientes - ALL', 'Clientes - SEARCH'],
                 ]
 
             );
@@ -62,31 +67,55 @@ class AppServiceProvider extends ServiceProvider
             $event->menu->add(
                 [
                     'text' => 'Perfil',
-                    'url' => 'admin/usuario/perfil',
+                    'url' => 'usuario/perfil',
                     'icon' => 'fas fa-fw fa-user',
-                    'active' => ['admin/usuario/perfil'],
+                    'active' => ['usuario.perfil'],
 
                 ],
                 [
                     'text' => 'Alterar Senha',
-                    'url' => 'admin/usuario/alterar-senha',
+                    'url' => 'usuario/alterar-senha',
                     'icon' => 'fas fa-fw fa-unlock',
-                    'active' => ['admin/usuario/alterar-senha'],
+                    'active' => ['usuario.alterar-senha'],
                 ]
             );
 
-            $event->menu->add('ADMINISTRAÇÃO');
-            $event->menu->add(
-                [
-                    'text' => 'Usuários',
-                    'url' => '/admin/usuarios',
-                    'icon' => 'fas  fa-user',
-                    'label' => User::count(),
-                    'label_color' => $_label_color,
-                    'active' => ['admin/usuarios/*'],
+            if (Auth::user()->hasRole('Super Administrator')) {
+                $event->menu->add('ADMINISTRAÇÃO');
 
-                ]
-            );
+                $event->menu->add(
+                    [
+                        'text' => 'Usuários',
+                        'url' => '/admin/usuario',
+                        'icon' => 'fas fa-fw fa-user',
+                        'label' => User::count(),
+                        'label_color' => $_label_color,
+                        'active' => ['admin.usuario.*'],
+                        'can' => ['Super Administrator'],
+
+                    ],
+                    [
+                        'text' => 'Perfil do Usuário',
+                        'url' => '/admin/role',
+                        'icon' => 'fas fa-fw fa-id-card',
+                        'label' => Role::count(),
+                        'label_color' => $_label_color,
+                        'active' => ['admin/role/*'],
+                        'can' => ['Super Administrator'],
+
+                    ],
+                    [
+                        'text' => 'Permissões do Perfil',
+                        'url' => '/admin/permission',
+                        'icon' => 'fa fa-fw fa-stack-overflow',
+                        'label' => Permission::count(),
+                        'label_color' => $_label_color,
+                        'active' => ['admin/permission/*'],
+                        'can' => ['Super Administrator'],
+
+                    ]
+                );
+            }
 
 
         });

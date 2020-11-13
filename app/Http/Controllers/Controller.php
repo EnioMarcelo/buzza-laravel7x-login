@@ -19,5 +19,7 @@ class Controller extends BaseController
      * QUANTIADADE DE REGISTROS POR PÁGINA
      */
     protected $per_page = 15;
+    protected $title_page = '';
+    protected $title_icon = '';
 
 }

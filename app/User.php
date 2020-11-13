@@ -6,10 +6,11 @@ use App\Notifications\meuResetDeSenha;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasRoles;
 
     public function sendPasswordResetNotification($token)
     {
@@ -56,6 +57,6 @@ class User extends Authenticatable
      */
     public function adminlte_profile_url()
     {
-        return route('admin.usuario.perfil');
+        return route('usuario.perfil');
     }
 }

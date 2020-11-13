@@ -18,7 +18,7 @@ class Usuario extends User
 
     public function getNameAttribute($value)
     {
-        return strtoupper($value);
+        return mb_strtoupper($value);
     }
 
     public function setEmailAttribute($value): void

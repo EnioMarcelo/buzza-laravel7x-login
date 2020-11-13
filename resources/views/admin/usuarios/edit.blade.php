@@ -4,8 +4,8 @@
 
     <div class="row">
         <div class="col a-no-color">
-            <a href="{{ route('admin.usuarios') }}">
-                <h2 style="margin-left: 10px;"><i class="fa fa-user" aria-hidden="true"></i> Usuário <small> -
+            <a href="{{ route('admin.usuario') }}">
+                <h2 style="margin-left: 10px;"><i class="{{ $title_icon }}" aria-hidden="true"></i> {{ $title_page }} <small> -
                         Edição</small></h2>
             </a>
         </div>
@@ -20,7 +20,7 @@
     <div class="col-sm-12 col-md-10 col-lg-10 col-xl-7 m-auto">
 
         {{-- FORM --}}
-        <form id="form-edit-user" role="form" method="POST" action="{{  route('admin.usuarios.update') }}" novalidate
+        <form id="form-edit-user" role="form" method="POST" action="{{  route('admin.usuario.update') }}" novalidate
               class="form-horizontal">
 
             @csrf
@@ -87,14 +87,14 @@
 
                     <div class="inputgroup">
                         <div class="col">
-                            <a href="{{ $_COOKIE['origin_ref'] }}"
+                            <a href="{{ session()->get('origin_ref') }}"
                                class="btn btn-outline-secondary margin-right-5">Cancelar</a>
                         </div>
                     </div>
 
                     <div class="inputgroup">
                         <div class="col">
-                            <a href="{{ route('admin.usuarios.create') }}"
+                            <a href="{{ route('admin.usuario.create') }}"
                                class="btn btn-outline-primary margin-right-5"><i class="fa fa-plus"></i> Novo
                                 Usuário</a>
                         </div>

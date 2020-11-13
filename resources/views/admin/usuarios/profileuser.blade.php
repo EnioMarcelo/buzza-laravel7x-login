@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col a-no-color">
-            <a href="{{ route('admin.usuario.perfil') }}">
+            <a href="{{ route('usuario.perfil') }}">
                 <h2 style="margin-left: 10px;"><i class="fa fa-user" aria-hidden="true"></i> Perfil <small> -
                         Usuário</small></h2>
             </a>
@@ -21,7 +21,7 @@
     <div class="col-sm-12 col-md-10 col-lg-10 col-xl-7 m-auto">
 
         {{-- FORM --}}
-        <form id="form-profile-user" role="form" method="POST" action="{{  route('admin.usuario.perfil.update', $data->id) }}"
+        <form id="form-profile-user" role="form" method="POST" action="{{  route('usuario.perfil.update', $data->id) }}"
               novalidate
               class="form-horizontal">
 

@@ -237,6 +237,7 @@ return [
             'search' => false,
             'topnav' => true,
         ],
+
         // [
         //     'text'        => 'Clientes',
         //     'url'         => 'cliente',
