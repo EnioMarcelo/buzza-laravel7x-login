@@ -14,8 +14,8 @@
           rel="stylesheet">
 
 
-    <link rel="stylesheet" href="/css/boot-buzza.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="{{ URL::asset('css/boot-buzza.css') }}">
+    <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 
     @yield('custom-css')
 
@@ -34,8 +34,8 @@
 
 
 
-    <script src="/js/macros_js.js"></script>
-    <script src="/js/scripts.js"></script>
+    <script src="{{ URL::asset('/js/macros_js.js') }}"></script>
+    <script src="{{ URL::asset('/js/scripts.js') }}"></script>
 
 
 
