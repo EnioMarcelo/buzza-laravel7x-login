@@ -32,8 +32,6 @@ class Cliente extends Model
      */
     public function setNomeAttribute($value): void
     {
-
-
         if (!empty(trim($value))) {
 
             $this->attributes['nome'] = strtoupper($value);
