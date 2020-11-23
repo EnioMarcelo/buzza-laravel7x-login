@@ -72,7 +72,7 @@
                         <div class="make-switch switch-large">
                             <input type="checkbox" name="active" class="" data-off-color="danger"
                                    data-on-color="primary"
-                                {{ old('active') == 'on' ? 'checked': $usuario->active == 1 ? 'checked' : '' }} {{  $usuario->id == Auth::user()->id ? 'disabled' : ''  }}>
+                                {{ old('active') == 'on' ? 'checked': ($usuario->active == 1 ? 'checked' : '') }} {{  $usuario->id == Auth::user()->id ? 'disabled' : ''  }}>
                         </div>
 
                     </div>
