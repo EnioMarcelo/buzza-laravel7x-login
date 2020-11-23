@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
@@ -34,9 +35,7 @@ class ClienteController extends Controller
                 ->appends(['search_for' => trim($request->search_for), 'per_page' => $per_page]);
 
         } else {
-            $clientes = Cliente::
-            orderBy('nome')
-                ->paginate($per_page);
+            $clientes = Cliente::orderBy('nome')->paginate($per_page);
         }
 
         return view('admin.clientes.index', [

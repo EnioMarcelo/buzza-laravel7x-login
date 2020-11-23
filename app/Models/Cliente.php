@@ -21,7 +21,6 @@ class Cliente extends Model
      */
     static function listcli()
     {
-
         return Cliente::orderBy("nome", "asc")->get();
     }
 
