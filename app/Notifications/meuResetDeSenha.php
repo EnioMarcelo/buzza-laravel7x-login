@@ -41,7 +41,7 @@ class meuResetDeSenha extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->from('password_reset@l.ms.gov.br')
+            ->from('password_reset@gmail.com')
             ->subject('Reset de Senha')
             ->greeting('Olá!')
             ->line('Você está recebendo este e-mail porque recebemos uma solicitação de redefinição de senha para sua conta.')
