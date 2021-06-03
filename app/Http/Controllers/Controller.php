@@ -16,10 +16,18 @@ class Controller extends BaseController
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * QUANTIADADE DE REGISTROS POR PÁGINA
+     * REGISTROS POR PÁGINA
      */
-    protected $per_page = 15;
+    protected $per_page = 18;
+
+    /**
+     * TÍTULO DA PÁGINA
+     */
     protected $title_page = '';
+
+    /**
+     * ÍCONE DA PÁGINA
+     */
     protected $title_icon = '';
 
 }
