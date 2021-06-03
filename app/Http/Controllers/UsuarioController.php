@@ -24,7 +24,6 @@ class UsuarioController extends Controller
     {
         $this->title_icon = 'fa fa-user';
         $this->title_page = 'Usuário';
-
     }
 
     /**
@@ -246,7 +245,7 @@ class UsuarioController extends Controller
         $rolesRequest = $request->except(['_token', '_method', 'url', 'id']);
 
         if (Auth::user()->hasRole('Super Administrator') && $usuarioId == Auth::user()->id) {
-            $rolesRequest[1] = 'on' ;
+            $rolesRequest[1] = 'on';
         }
 
         foreach ($rolesRequest as $key => $value) {

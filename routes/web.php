@@ -37,9 +37,12 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Clientes
     Route::group(['prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|Clientes - ALL|Clientes - ADD|Clientes - EDIT|Clientes - DEL|Clientes - SEARCH']], function () {
-        Route::get('/', 'ClienteController@index')->name('teste.cliente');
-        Route::get('/create', 'ClienteController@create')->name('teste.cliente.create');
-        Route::get('/show/{id}', 'ClienteController@show')->name('teste.cliente.show');
+        Route::get('/', 'ClienteController@index')->name('cliente');
+        Route::get('/create', 'ClienteController@create')->name('cliente.create');
+        Route::get('/{id}/show', 'ClienteController@show')->name('cliente.show');
+        Route::get('/{cliente}/edit', 'ClienteController@edit')->name('cliente.edit');
+        Route::put('/update', 'ClienteController@update')->name('cliente.update');
+        Route::delete('/{cliente}/destroy', 'ClienteController@destroy')->name('cliente.destroy');
     });
 
 
@@ -87,8 +90,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/permission/store', 'PermissionController@store')->name('permission.store');
         Route::put('/permission/update', 'PermissionController@update')->name('permission.update');
         Route::delete('/permission/{permission}/destroy', 'PermissionController@destroy')->name('permission.destroy');
-
-
     });
 
     Route::group(['prefix' => 'usuario', 'as' => 'usuario.'], function () {
@@ -101,9 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
         //Alterar Senha
         Route::get('/alterar-senha', 'ChangePassController@index')->name('alterar-senha');
         Route::post('/alterar-senha/change', 'ChangePassController@changePassword')->name('alterar-senha.change');
-
     });
-
 });
 
 
@@ -118,8 +117,4 @@ Route::get('/clear', function () {
 
 
     return "Cleared!";
-
 })->name('clear');
-
-
-

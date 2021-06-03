@@ -6,10 +6,18 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class ClienteController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->title_icon = 'fa fa-user';
+        $this->title_page = 'Clientes';
+    }
+
     /**
      * Display a listing of the resource.
      * @param Request $request
@@ -18,14 +26,18 @@ class ClienteController extends Controller
     public function index(Request $request)
     {
         /**
+         * SET SESSION FULL URL ORIGIN CALL
+         */
+        session()->put('origin_ref', $request->fullUrl());
+
+        /**
          * QUANTIADADE DE REGISTROS POR PÁGINA
          */
         $per_page = $this->per_page;
 
 
         if (trim($request->search_for)) {
-            $clientes = Cliente::
-            where('tipo_pessoa', 'LIKE', '%' . trim($request->search_for) . '%')
+            $clientes = Cliente::where('tipo_pessoa', 'LIKE', '%' . trim($request->search_for) . '%')
                 ->orWhere('nome', 'LIKE', '%' . trim($request->search_for) . '%')
                 ->orWhere('cpf', 'LIKE', '%' . trim($request->search_for) . '%')
                 ->orWhere('cnpj', 'LIKE', '%' . trim($request->search_for) . '%')
@@ -33,7 +45,6 @@ class ClienteController extends Controller
                 ->orderBy('nome')
                 ->paginate($per_page)
                 ->appends(['search_for' => trim($request->search_for), 'per_page' => $per_page]);
-
         } else {
             $clientes = Cliente::orderBy('nome')->paginate($per_page);
         }
@@ -54,23 +65,7 @@ class ClienteController extends Controller
      */
     public function create(Request $request)
     {
-        // $cliente = new Clientes();
-
-        // $cliente->tipo_pessoa = "PESSOA";
-        // $cliente->nome = "cds csdcsdcscsc csdcds";
-        // $cliente->cpf = "2343";
-        // $cliente->rg = "32323/SEJUSPMS";
-        // $cliente->email = "d222scsdcs@bol.com.br";
-        // $cliente->anotacoes = "cdscds cdsc sdc sdcsd cdscdscdscsdcsd csdcds ";
-
-        $_r['tipo_pessoa'] = 'PESSOA';
-        $_r['nome'] = 'sdcsdc csdsc scds';
-        $_r['cpf'] = '583233';
-        $_r['email'] = '583cdcscssccd@gmail.com';
-
-        $createCliente = Cliente::create($_r);
-
-        // dd($createCliente);
+        echo 'Novo Usuário - Create';
     }
 
     /**
@@ -106,11 +101,19 @@ class ClienteController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Cliente $clientes
-     * @return void
+     * @return Factory|Response|View
      */
-    public function edit(Cliente $clientes)
+
+    public function edit(Cliente $cliente)
     {
-        //
+        echo 'Edit Clientes: ' . $cliente->id;
+
+        $cliente = Cliente::find($cliente->id);
+        return view('admin.clientes.edit', [
+            'title_icon' => $this->title_icon,
+            'title_page' => $this->title_page,
+            'cliente' => $cliente
+        ]);
     }
 
     /**
@@ -131,8 +134,18 @@ class ClienteController extends Controller
      * @param Cliente $clientes
      * @return void
      */
-    public function destroy(Cliente $clientes)
+    public function destroy(Cliente $cliente)
     {
-        //
+
+        /**
+         * DELETE CLIENTE
+         */
+        Cliente::find($cliente->id)->delete($cliente->id);
+
+        Session::flash('success', 'Registro deletado com sucesso.');
+
+        return response()->json([
+            'success' => 'Registro deletado com sucesso.'
+        ]);
     }
 }

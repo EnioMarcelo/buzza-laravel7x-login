@@ -8,7 +8,7 @@
 @elseif ($menuItemHelper->isSubmenu($item))
 
     {{-- Dropdown menu --}}
-    @include('adminlte::partials.navbar.menu-item-dropdown-menu')
+    //@include('adminlte::partials.navbar.menu-item-dropdown-menu')
 
 @elseif ($menuItemHelper->isLink($item))
 
