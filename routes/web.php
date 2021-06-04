@@ -36,7 +36,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
 
     // Clientes
-    Route::group(['prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|Clientes - ALL|Clientes - ADD|Clientes - EDIT|Clientes - DEL|Clientes - SEARCH']], function () {
+    Route::group(['namespace' => 'Clientes', 'prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|Clientes - ALL|Clientes - ADD|Clientes - EDIT|Clientes - DEL|Clientes - SEARCH']], function () {
         Route::get('/', 'ClienteController@index')->name('cliente');
         Route::get('/create', 'ClienteController@create')->name('cliente.create');
         Route::get('/{id}/show', 'ClienteController@show')->name('cliente.show');
@@ -47,7 +47,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
     //Usuários
-    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:Super Administrator']], function () {
+    Route::group(['namespace' => 'Usuarios', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:Super Administrator']], function () {
 
         Route::get('/usuario', 'UsuarioController@index')->name('usuario');
         Route::get('/usuario/create', 'UsuarioController@create')->name('usuario.create');
@@ -92,7 +92,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/permission/{permission}/destroy', 'PermissionController@destroy')->name('permission.destroy');
     });
 
-    Route::group(['prefix' => 'usuario', 'as' => 'usuario.'], function () {
+    Route::group(['namespace' => 'Usuarios', 'prefix' => 'usuario', 'as' => 'usuario.'], function () {
 
         //Perfil
         Route::get('/perfil', 'ProfileController@index')->name('perfil');

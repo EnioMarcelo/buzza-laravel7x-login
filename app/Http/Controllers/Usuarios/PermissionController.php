@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Usuarios;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

@@ -1,8 +1,9 @@
 <?php
 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Clientes;
 
+use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;

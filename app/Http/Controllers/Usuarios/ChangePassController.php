@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Usuarios;
 
+use App\Http\Controllers\Controller;
 use App\Rules\MatchOldPassword;
 use App\User;
 use Illuminate\Contracts\View\Factory;

@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Usuarios;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UsuarioRequest;
 use App\Models\Usuario;
 use App\User;
