@@ -131,13 +131,13 @@ class PermissionController extends Controller
         /**
          * PERMISSÃO DO PERFIL SUPER ADMIN NÃO PODE SER EDITADO
          */
-        if( $request->id == 1 ){
-            return redirect(session()->get('origin_ref'))->with("warning", "Esta Permissão do Perfil do Usuário não pode ser editado.");
-        }
-
-        if ($permission->save()) {
-            return redirect(session()->get('origin_ref'))->with("success", "Permissão do Usuário atualizado com sucesso.");
-        }
+//        if( $request->id == 1 ){
+//            return redirect(session()->get('origin_ref'))->with("warning", "Esta Permissão do Perfil do Usuário não pode ser editado.");
+//        }
+//
+//        if ($permission->save()) {
+//            return redirect(session()->get('origin_ref'))->with("success", "Permissão do Usuário atualizado com sucesso.");
+//        }
     }
 
     /**
@@ -152,13 +152,13 @@ class PermissionController extends Controller
         /**
          * PERMISSÃO DO PERFIL SUPER ADMINISTRADTOR NÃO PODE SER DELETADO
          */
-        if( $permission->id == 1 ){
-            Session::flash('warning', 'Estea Permissão do Perfil do Usuário não pode ser deletado.');
-
-            return response()->json([
-                'warning' => 'Impossivel Deletar, Este Perfil do Usuário não pode ser deletado.'
-            ]);
-        }
+//        if( $permission->id == 1 ){
+//            Session::flash('warning', 'Estea Permissão do Perfil do Usuário não pode ser deletado.');
+//
+//            return response()->json([
+//                'warning' => 'Impossivel Deletar, Este Perfil do Usuário não pode ser deletado.'
+//            ]);
+//        }
 
 
         /**

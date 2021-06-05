@@ -36,7 +36,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'name' => 'Enio Marcelo Buzaneli',
                 'email' => 'eniomarcelo@gmail.com',
                 'password' => bcrypt('123456'),
-                'active' => '1',
+                'active' => 'on',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]
@@ -52,7 +52,7 @@ class RolesAndPermissionsSeeder extends Seeder
                 'name' => 'José das Coves Buzaneli',
                 'email' => 'eniomarcelo@al.ms.gov.br',
                 'password' => bcrypt('123456'),
-                'active' => '1',
+                'active' => 'on',
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ]

@@ -14,51 +14,6 @@ class User extends Authenticatable
     protected $table = 'users';
     public $incrementing = false;
 
-    public function setNameAttribute($value): void
-    {
-        if (!empty(trim($value))) {
-            $this->attributes['name'] = mb_strtoupper($value);
-        }
-    }
-
-    public function getNameAttribute($value)
-    {
-        return mb_strtoupper($value);
-    }
-
-    public function setEmailAttribute($value): void
-    {
-        if (!empty(trim($value))) {
-            $this->attributes['email'] = mb_strtolower($value);
-        }
-    }
-
-    public function setActiveAttribute($value): void
-    {
-        if ($value == 'on') {
-            $this->attributes['active'] = 1;
-        } else {
-            $this->attributes['active'] = 0;
-        }
-    }
-
-    public function setPasswordAttribute($value): void
-    {
-        if (empty(trim($value))) {
-            $this->attributes['password'] = bcrypt(date('dmyHis'));
-        }
-    }
-
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y', strtotime($value));
-    }
-
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new meuResetDeSenha($token));
-    }
-
     /**
      * The attributes that are mass assignable.
      *
@@ -86,6 +41,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+
     /**
      * @return string
      */
@@ -101,4 +57,76 @@ class User extends Authenticatable
     {
         return route('usuario.perfil');
     }
+
+    /**
+     * @param $value
+     */
+    public function setNameAttribute($value): void
+    {
+        if (!empty(trim($value))) {
+            $this->attributes['name'] = mb_strtoupper($value);
+        }
+    }
+
+    /**
+     * @param $value
+     * @return false|string|string[]
+     */
+    public function getNameAttribute($value)
+    {
+        return mb_strtoupper($value);
+    }
+
+    /**
+     * @param $value
+     */
+    public function setEmailAttribute($value): void
+    {
+        if (!empty(trim($value))) {
+            $this->attributes['email'] = mb_strtolower($value);
+        }
+    }
+
+    /**
+     * @param $value
+     */
+    public function setActiveAttribute($value): void
+    {
+        if ($value == 'on') {
+            $this->attributes['active'] = 1;
+        } else {
+            $this->attributes['active'] = 0;
+        }
+
+    }
+
+    /**
+     * @param $value
+     */
+    public function setPasswordAttribute($value): void
+    {
+        if (empty(trim($value))) {
+            $this->attributes['password'] = bcrypt(date('dmyHis'));
+        } else {
+            $this->attributes['password'] = $value;
+        }
+    }
+
+    /**
+     * @param $value
+     * @return false|string
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/Y', strtotime($value));
+    }
+
+    /**
+     * @param string $token
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new meuResetDeSenha($token));
+    }
+
 }
