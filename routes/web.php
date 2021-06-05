@@ -33,7 +33,7 @@ Auth::routes();
  */
 
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','check_status_user']], function () {
 
     // Clientes
     Route::group(['namespace' => 'Client', 'prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|Clientes - ALL|Clientes - ADD|Clientes - EDIT|Clientes - DEL|Clientes - SEARCH']], function () {
