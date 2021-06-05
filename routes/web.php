@@ -36,29 +36,29 @@ Auth::routes();
 Route::group(['middleware' => ['auth']], function () {
 
     // Clientes
-    Route::group(['namespace' => 'Clientes', 'prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|Clientes - ALL|Clientes - ADD|Clientes - EDIT|Clientes - DEL|Clientes - SEARCH']], function () {
-        Route::get('/', 'ClienteController@index')->name('cliente');
-        Route::get('/create', 'ClienteController@create')->name('cliente.create');
-        Route::get('/{id}/show', 'ClienteController@show')->name('cliente.show');
-        Route::get('/{cliente}/edit', 'ClienteController@edit')->name('cliente.edit');
-        Route::put('/update', 'ClienteController@update')->name('cliente.update');
-        Route::delete('/{cliente}/destroy', 'ClienteController@destroy')->name('cliente.destroy');
+    Route::group(['namespace' => 'Client', 'prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|Clientes - ALL|Clientes - ADD|Clientes - EDIT|Clientes - DEL|Clientes - SEARCH']], function () {
+        Route::get('/', 'ClientController@index')->name('cliente');
+        Route::get('/create', 'ClientController@create')->name('cliente.create');
+        Route::get('/{id}/show', 'ClientController@show')->name('cliente.show');
+        Route::get('/{cliente}/edit', 'ClientController@edit')->name('cliente.edit');
+        Route::put('/update', 'ClientController@update')->name('cliente.update');
+        Route::delete('/{cliente}/destroy', 'ClientController@destroy')->name('cliente.destroy');
     });
 
 
     //Usuários
-    Route::group(['namespace' => 'Usuarios', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:Super Administrator']], function () {
+    Route::group(['namespace' => 'User', 'prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['role:Super Administrator']], function () {
 
-        Route::get('/usuario', 'UsuarioController@index')->name('usuario');
-        Route::get('/usuario/create', 'UsuarioController@create')->name('usuario.create');
-        Route::post('/usuario/store', 'UsuarioController@store')->name('usuario.store');
-        Route::delete('/usuario/{usuario}/destroy', 'UsuarioController@destroy')->name('usuario.destroy');
-        Route::get('/usuario/{usuario}/edit', 'UsuarioController@edit')->name('usuario.edit');
-        Route::put('/usuario/update', 'UsuarioController@update')->name('usuario.update');
-        Route::get('/usuario/{usuario}/btnactive', 'UsuarioController@btnactive')->name('usuario.btnactive');
+        Route::get('/usuario', 'UserController@index')->name('usuario');
+        Route::get('/usuario/create', 'UserController@create')->name('usuario.create');
+        Route::post('/usuario/store', 'UserController@store')->name('usuario.store');
+        Route::delete('/usuario/{usuario}/destroy', 'UserController@destroy')->name('usuario.destroy');
+        Route::get('/usuario/{usuario}/edit', 'UserController@edit')->name('usuario.edit');
+        Route::put('/usuario/update', 'UserController@update')->name('usuario.update');
+        Route::get('/usuario/{usuario}/btnactive', 'UserController@btnactive')->name('usuario.btnactive');
 
-        Route::get('/usuario/{usuario}/role', 'UsuarioController@role')->name('usuario.role');
-        Route::put('/usuario/role/sync', 'UsuarioController@roleSync')->name('usuario.roleSync');
+        Route::get('/usuario/{usuario}/role', 'UserController@role')->name('usuario.role');
+        Route::put('/usuario/role/sync', 'UserController@roleSync')->name('usuario.roleSync');
 
 
         //Perfil
@@ -92,7 +92,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/permission/{permission}/destroy', 'PermissionController@destroy')->name('permission.destroy');
     });
 
-    Route::group(['namespace' => 'Usuarios', 'prefix' => 'usuario', 'as' => 'usuario.'], function () {
+    Route::group(['namespace' => 'User', 'prefix' => 'usuario', 'as' => 'usuario.'], function () {
 
         //Perfil
         Route::get('/perfil', 'ProfileController@index')->name('perfil');

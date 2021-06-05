@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Cliente;
+use App\Models\Client;
 use App\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -55,7 +55,7 @@ class AppServiceProvider extends ServiceProvider
                     'text' => 'Clientes',
                     'url' => 'clientes',
                     'icon' => 'far fa-fw fa-user ',
-                    'label' => Cliente::count(),
+                    'label' => Client::count(),
                     'label_color' => $_label_color,
                     'active' => ['cliente/*'],
                     'can' => ['Super Administrator', 'Clientes - ALL', 'Clientes - SEARCH'],

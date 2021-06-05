@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Usuarios;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UsuarioRequest;
-use App\Models\Usuario;
 use App\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Spatie\Permission\Models\Role;
 
-class UsuarioController extends Controller
+class UserController extends Controller
 {
 
     public function __construct()
@@ -46,13 +45,13 @@ class UsuarioController extends Controller
         $per_page = $this->per_page;
 
         if (trim($request->search_for)) {
-            $usuarios = Usuario::where('name', 'LIKE', '%' . trim($request->search_for) . '%')
+            $usuarios = User::where('name', 'LIKE', '%' . trim($request->search_for) . '%')
                 ->orWhere('email', 'LIKE', '%' . trim($request->search_for) . '%')
                 ->orderBy('name')
                 ->paginate($per_page)
                 ->appends(['search_for' => trim($request->search_for), 'per_page' => $per_page]);
         } else {
-            $usuarios = Usuario::orderBy('name')
+            $usuarios = User::orderBy('name')
                 ->paginate($per_page);
         }
 
@@ -87,7 +86,7 @@ class UsuarioController extends Controller
      */
     public function store(UsuarioRequest $request)
     {
-        $usuario = new Usuario();
+        $usuario = new User();
         $usuario->id = random_int(100000000, 999999999) . random_int(100000000, 999999999);
         $usuario->name = $request->name;
         $usuario->email = $request->email;
@@ -102,10 +101,10 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Usuario $usuario
+     * @param User $usuario
      * @return void
      */
-    public function show(Usuario $usuario)
+    public function show(User $usuario)
     {
         //
     }
@@ -113,12 +112,12 @@ class UsuarioController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Usuario $usuario
+     * @param User $usuario
      * @return Factory|Response|View
      */
-    public function edit(Usuario $usuario)
+    public function edit(User $usuario)
     {
-        $usuario = Usuario::find($usuario->id);
+        $usuario = User::find($usuario->id);
         return view('admin.usuarios.edit', [
             'title_icon' => $this->title_icon,
             'title_page' => $this->title_page,
@@ -134,7 +133,7 @@ class UsuarioController extends Controller
      */
     public function update(UsuarioRequest $request)
     {
-        $usuario = Usuario::find($request->id);
+        $usuario = User::find($request->id);
         $usuario->name = $request->name;
         $usuario->email = $request->email;
 
@@ -150,10 +149,10 @@ class UsuarioController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Usuario $usuario
+     * @param User $usuario
      * @return JsonResponse|Response
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(User $usuario)
     {
         if (Auth::user()->id == $usuario->id) {
             Session::flash('warning', 'Você não pode deletar o próprio cadastro.');
@@ -173,7 +172,7 @@ class UsuarioController extends Controller
         /**
          * DELETE USER
          */
-        Usuario::find($usuario->id)->delete($usuario->id);
+        User::find($usuario->id)->delete($usuario->id);
 
         Session::flash('success', 'Registro deletado com sucesso.');
 
@@ -186,10 +185,10 @@ class UsuarioController extends Controller
     /**
      * Undocumented function
      *
-     * @param Usuario $usuario
+     * @param User $usuario
      * @return Factory|JsonResponse|Response|View
      */
-    public function btnActive(Usuario $usuario)
+    public function btnActive(User $usuario)
     {
         if (Auth::user()->id == $usuario->id) {
             return response()->json([
@@ -197,7 +196,7 @@ class UsuarioController extends Controller
             ]);
         } else {
 
-            $usuario = Usuario::find($usuario->id);
+            $usuario = User::find($usuario->id);
             $usuario->active = (bool)$usuario->active ? 1 : 0;
 
             if ($usuario->save()) {
@@ -212,7 +211,7 @@ class UsuarioController extends Controller
     }
 
 
-    public function role(Usuario $usuario)
+    public function role(User $usuario)
     {
         $this->title_icon = 'fa fa-stack-overflow';
         $this->title_page = 'Perfil do Usuário: ' . '<b>' . $usuario->name . '</b>';

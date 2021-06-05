@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cliente extends Model
+class Client extends Model
 {
     protected $table = 'clientes';
 
@@ -21,7 +21,7 @@ class Cliente extends Model
      */
     static function listcli()
     {
-        return Cliente::orderBy("nome", "asc")->get();
+        return Client::orderBy("nome", "asc")->get();
     }
 
     /**

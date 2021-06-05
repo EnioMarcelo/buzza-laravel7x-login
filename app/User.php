@@ -3,7 +3,6 @@
 namespace App;
 
 use App\Notifications\meuResetDeSenha;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -11,6 +10,49 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     use Notifiable, HasRoles;
+
+    protected $table = 'users';
+    public $incrementing = false;
+
+    public function setNameAttribute($value): void
+    {
+        if (!empty(trim($value))) {
+            $this->attributes['name'] = mb_strtoupper($value);
+        }
+    }
+
+    public function getNameAttribute($value)
+    {
+        return mb_strtoupper($value);
+    }
+
+    public function setEmailAttribute($value): void
+    {
+        if (!empty(trim($value))) {
+            $this->attributes['email'] = mb_strtolower($value);
+        }
+    }
+
+    public function setActiveAttribute($value): void
+    {
+        if ($value == 'on') {
+            $this->attributes['active'] = 1;
+        } else {
+            $this->attributes['active'] = 0;
+        }
+    }
+
+    public function setPasswordAttribute($value): void
+    {
+        if (empty(trim($value))) {
+            $this->attributes['password'] = bcrypt(date('dmyHis'));
+        }
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/Y', strtotime($value));
+    }
 
     public function sendPasswordResetNotification($token)
     {

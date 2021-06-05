@@ -50,7 +50,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/cliente/') }}">{{ __('Cliente') }}</a>
+                            <a class="nav-link" href="{{ url('/cliente/') }}">{{ __('Client') }}</a>
                         </li>
 
                     </ul>

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Usuarios;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
-use App\Models\Usuario;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +16,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $usuario = Usuario::find(Auth::user()->id);
+        $usuario = User::find(Auth::user()->id);
 
         return view('admin.usuarios.profileuser', [
             'data' => $usuario
@@ -75,7 +75,7 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $usuario = Usuario::find($id);
+        $usuario = User::find($id);
         $usuario->name = $request->name;
 
         if ($usuario->save()) {
