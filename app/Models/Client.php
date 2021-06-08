@@ -47,10 +47,7 @@ class Client extends Model
      */
     public function setEmailAttribute($value): void
     {
-
-
         if (!empty(trim($value))) {
-
             $this->attributes['email'] = strtolower($value);
         }
     }
@@ -64,9 +61,7 @@ class Client extends Model
      */
     public function setTipoPessoaAttribute($value): void
     {
-
         if (!empty(trim($value))) {
-
             $this->attributes['tipo_pessoa'] = strtoupper($value);
         } else {
         }
