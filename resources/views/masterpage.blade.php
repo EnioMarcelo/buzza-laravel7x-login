@@ -13,6 +13,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
           rel="stylesheet">
 
+    @livewireStyles
 
     <link rel="stylesheet" href="{{ URL::asset('css/boot-buzza.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
@@ -24,6 +25,12 @@
 
 
 
+@section('content')
+    @if( isset($slot) )
+        {{$slot}}
+    @endif
+@endsection
+
 
 
 
@@ -32,7 +39,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 
-
+    @livewireScripts
 
     <script src="{{ URL::asset('/js/macros_js.js') }}"></script>
     <script src="{{ URL::asset('/js/scripts.js') }}"></script>
@@ -54,6 +61,58 @@
         });
     </script>
     @endif --}}
+
+
+
+    {{-- TOASTR MESSAGE FOR LIVEWARE --}}
+    <script>
+        window.addEventListener('alert', ({detail: {type, message}}) => {
+            if (type == 'error') {
+                $(document).Toasts('create', {
+                    title: 'ATENÇÃO...',
+                    body: message,
+                    class: 'bg-danger toasts-width margin-top-5 margin-right-5',
+                    autohide: true,
+                    delay: 3000,
+                    fade: true,
+                    icon: 'fa fa-exclamation-triangle'
+                });
+            } else if (type == 'info') {
+                $(document).Toasts('create', {
+                    title: 'INFORMAÇÃO...',
+                    body: message,
+                    class: 'bg-info toasts-width margin-top-5 margin-right-5',
+                    autohide: true,
+                    delay: 3000,
+                    fade: true,
+                    icon: 'fa fa-thumbs-up '
+                });
+            } else if (type == 'success') {
+                $(document).Toasts('create', {
+                    title: 'SUCESSO...',
+                    body: message,
+                    class: 'bg-success toasts-width margin-top-5 margin-right-5',
+                    autohide: true,
+                    delay: 2000,
+                    fade: true,
+                    icon: 'fa fa-thumbs-up '
+                });
+            } else if (type == 'warning') {
+                $(document).Toasts('create', {
+                    title: 'ATENÇÃO...',
+                    body: message,
+                    class: 'bg-warning toasts-width margin-top-5 margin-right-5',
+                    autohide: true,
+                    delay: 3000,
+                    fade: true,
+                    icon: 'fas fa-exclamation-triangle '
+                });
+            }
+        })
+    </script>
+    {{-- TOASTR MESSAGE FOR LIVEWARE --}}
+
+
 
 
     @if ($message = Session::get('error'))
