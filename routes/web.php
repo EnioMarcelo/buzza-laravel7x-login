@@ -37,13 +37,14 @@ Route::group(['middleware' => ['auth','check_status_user']], function () {
 
     // Clientes
     Route::group(['namespace' => 'Client', 'prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|Clientes - ALL|Clientes - ADD|Clientes - EDIT|Clientes - DEL|Clientes - SEARCH']], function () {
-        Route::get('/', 'ClientController@index')->name('cliente');
+        //Route::get('/', 'ClientController@index')->name('cliente');
         //Route::get('/create', 'ClientController@create')->name('cliente.create');
+        Route::get('/', [\App\Http\Livewire\ClientesShow::class, '__invoke'])->name('clientes');
         Route::get('/create', [\App\Http\Livewire\ClientesAdd::class, '__invoke'])->name('cliente.create');
-        Route::get('/{id}/show', 'ClientController@show')->name('cliente.show');
-        Route::get('/{cliente}/edit', 'ClientController@edit')->name('cliente.edit');
-        Route::put('/update', 'ClientController@update')->name('cliente.update');
-        Route::delete('/{cliente}/destroy', 'ClientController@destroy')->name('cliente.destroy');
+        //Route::get('/{id}/show', 'ClientController@show')->name('cliente.show');
+        //Route::get('/{cliente}/edit', 'ClientController@edit')->name('cliente.edit');
+        //Route::put('/create', 'ClientController@update')->name('cliente.update');
+        //Route::delete('/{cliente}/destroy', 'ClientController@destroy')->name('cliente.destroy');
     });
 
 

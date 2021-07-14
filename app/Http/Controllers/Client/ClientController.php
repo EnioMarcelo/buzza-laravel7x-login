@@ -17,6 +17,7 @@ class ClientController extends Controller
     {
         $this->title_icon = 'fa fa-user';
         $this->title_page = 'Clientes';
+        $this->per_page = 5;
     }
 
     /**
@@ -66,7 +67,7 @@ class ClientController extends Controller
      */
     public function create(Request $request)
     {
-        echo 'Novo Usuário - Create';
+        //
     }
 
     /**
@@ -77,7 +78,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        //
     }
 
     /**
@@ -90,12 +91,7 @@ class ClientController extends Controller
      */
     public function show(Client $clientes, $id)
     {
-
-
-        $_r = Client::where('id', $id)->pluck('nome');
-
-
-        dd($_r, $id);
+        //
     }
 
     /**

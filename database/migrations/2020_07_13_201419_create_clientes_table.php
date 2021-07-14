@@ -15,8 +15,11 @@ class CreateClientesTable extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
 
+            $table->charset = 'utf8mb4';
+            $table->collation = 'utf8mb4_unicode_ci';
+
             $table->bigIncrements('id');
-            $table->string('tipo_pessoa', 8);
+            $table->string('tipo_pessoa', 10);
             $table->string('nome', 255);
             $table->string('cpf', 14)->nullable();
             $table->string('cnpj', 18)->nullable();

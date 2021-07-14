@@ -23,11 +23,17 @@ class ClientesAdd extends Component
 
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.clientes-add');
     }
 
+    /**
+     *
+     */
     private function resetInputFields()
     {
         $this->nome = null;
@@ -35,6 +41,9 @@ class ClientesAdd extends Component
         $this->tipo_pessoa = 'TESTE';
     }
 
+    /**
+     *
+     */
     public function store()
     {
 

@@ -4,7 +4,7 @@
         <div class="col a-no-color">
             <a href="" wire:click.prevent="set_screen('show')" wire:loading.class="disabled">
                 <h2 style="margin-left: 10px;"><i class="{{ $title_icon }}" aria-hidden="true"></i> {{ $title_page }}
-                    <small> - Novo Registro</small></h2>
+                    <small> - Edição</small></h2>
             </a>
         </div>
     </div>
@@ -71,7 +71,7 @@
 
                     <div class="inputgroup">
                         <div class="col">
-                            <button wire:click.prevent="store()" wire:loading.class="disabled" class="btn btn-primary"><i class="fa fa-save"></i>
+                            <button wire:click.prevent="update({{$_id}})" wire:loading.class="disabled" class="btn btn-primary"><i class="fa fa-save"></i>
                                 Salvar
                             </button>
                         </div>

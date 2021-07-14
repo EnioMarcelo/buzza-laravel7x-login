@@ -13,15 +13,15 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
           rel="stylesheet">
 
-    @livewireStyles
 
     <link rel="stylesheet" href="{{ URL::asset('css/boot-buzza.css') }}">
     <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 
+    @livewireStyles
+
     @yield('custom-css')
 
 @stop
-
 
 
 
@@ -30,7 +30,6 @@
         {{$slot}}
     @endif
 @endsection
-
 
 
 
@@ -43,8 +42,6 @@
 
     <script src="{{ URL::asset('/js/macros_js.js') }}"></script>
     <script src="{{ URL::asset('/js/scripts.js') }}"></script>
-
-
 
     {{-- @if ($errors->any())
     <script type="text/javascript">
@@ -63,69 +60,19 @@
     @endif --}}
 
 
-
-    {{-- TOASTR MESSAGE FOR LIVEWARE --}}
-    <script>
-        window.addEventListener('alert', ({detail: {type, message}}) => {
-            if (type == 'error') {
-                $(document).Toasts('create', {
-                    title: 'ATENÇÃO...',
-                    body: message,
-                    class: 'bg-danger toasts-width margin-top-5 margin-right-5',
-                    autohide: true,
-                    delay: 3000,
-                    fade: true,
-                    icon: 'fa fa-exclamation-triangle'
-                });
-            } else if (type == 'info') {
-                $(document).Toasts('create', {
-                    title: 'INFORMAÇÃO...',
-                    body: message,
-                    class: 'bg-info toasts-width margin-top-5 margin-right-5',
-                    autohide: true,
-                    delay: 3000,
-                    fade: true,
-                    icon: 'fa fa-thumbs-up '
-                });
-            } else if (type == 'success') {
-                $(document).Toasts('create', {
-                    title: 'SUCESSO...',
-                    body: message,
-                    class: 'bg-success toasts-width margin-top-5 margin-right-5',
-                    autohide: true,
-                    delay: 2000,
-                    fade: true,
-                    icon: 'fa fa-thumbs-up '
-                });
-            } else if (type == 'warning') {
-                $(document).Toasts('create', {
-                    title: 'ATENÇÃO...',
-                    body: message,
-                    class: 'bg-warning toasts-width margin-top-5 margin-right-5',
-                    autohide: true,
-                    delay: 3000,
-                    fade: true,
-                    icon: 'fas fa-exclamation-triangle '
-                });
-            }
-        })
-    </script>
-    {{-- TOASTR MESSAGE FOR LIVEWARE --}}
-
-
-
-
+    {{-- TOASTR MESSAGE FOR JQUERY --}}
     @if ($message = Session::get('error'))
         <script type="text/javascript">
             $(function () {
                 $(document).Toasts('create', {
                     title: 'ATENÇÃO...',
                     body: '{{ $message }}',
-                    class: 'bg-danger toasts-width margin-top-5 margin-right-5',
+                    class: 'bg-danger toasts-width margin-bottom-5 margin-right-5',
                     autohide: true,
-                    delay: 3000,
+                    delay: 5000,
                     fade: true,
-                    icon: 'fa fa-exclamation-triangle'
+                    icon: 'fa fa-exclamation-triangle',
+                    position: 'bottomRight'
                 });
             });
         </script>
@@ -139,11 +86,12 @@
                 $(document).Toasts('create', {
                     title: 'INFORMAÇÃO...',
                     body: '{{ $message }}',
-                    class: 'bg-info toasts-width margin-top-5 margin-right-5',
+                    class: 'bg-info toasts-width margin-bottom-5 margin-right-5',
                     autohide: true,
-                    delay: 3000,
+                    delay: 5000,
                     fade: true,
-                    icon: 'fa fa-thumbs-up '
+                    icon: 'fa fa-thumbs-up ',
+                    position: 'bottomRight'
                 });
             });
         </script>
@@ -157,11 +105,12 @@
                 $(document).Toasts('create', {
                     title: 'SUCESSO...',
                     body: '{{ $message }}',
-                    class: 'bg-success toasts-width margin-top-5 margin-right-5',
+                    class: 'bg-success toasts-width margin-bottom-5 margin-right-5',
                     autohide: true,
-                    delay: 2000,
+                    delay: 5000,
                     fade: true,
-                    icon: 'fa fa-thumbs-up '
+                    icon: 'fa fa-thumbs-up ',
+                    position: 'bottomRight'
                 });
             });
         </script>
@@ -175,15 +124,18 @@
                 $(document).Toasts('create', {
                     title: 'ATENÇÃO...',
                     body: '{{ $message }}',
-                    class: 'bg-warning toasts-width margin-top-5 margin-right-5',
+                    class: 'bg-warning toasts-width margin-bottom-5 margin-right-5',
                     autohide: true,
-                    delay: 3000,
+                    delay: 5000,
                     fade: true,
-                    icon: 'fas fa-exclamation-triangle '
+                    icon: 'fas fa-exclamation-triangle ',
+                    position: 'bottomRight'
                 });
             });
         </script>
     @endif
+    {{-- TOASTR MESSAGE FOR JQUERY --}}
+
 
 
 

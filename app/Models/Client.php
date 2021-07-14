@@ -14,6 +14,10 @@ class Client extends Model
         'email'
     ];
 
+    protected $attributes = [
+        'tipo_pessoa' => 'TIPO-PESSOA',
+    ];
+
     /**
      * Undocumented function
      *
@@ -63,7 +67,6 @@ class Client extends Model
     {
         if (!empty(trim($value))) {
             $this->attributes['tipo_pessoa'] = strtoupper($value);
-        } else {
         }
     }
 }
