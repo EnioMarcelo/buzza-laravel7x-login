@@ -79,9 +79,6 @@ class ClientesShow extends Component
             $this->type_screen = 'show';
         }
 
-        $this->title_icon = 'fa fa-user';
-        $this->title_page = 'Clientes';
-
         $this->type_screen = $screen;
     }
 
