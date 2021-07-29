@@ -20,7 +20,9 @@
         <div class="row">
             <div class="col a-no-color">
                 <a href="" wire:click.prevent="set_screen('show')" wire:loading.class="disabled">
+
                     <h2 style="margin-left: 10px;"><i class="{{ $title_icon }}" aria-hidden="true"></i> {{ $title_page }}</h2>
+                    
                 </a>
             </div>
 
