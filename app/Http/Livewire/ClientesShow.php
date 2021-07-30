@@ -30,6 +30,7 @@ class ClientesShow extends Component
     public $search_for = null;
     public $per_page = 15;
 
+    // INPUT FIELDS
     public $_id = null;
     public $_destroyId = null;
 
