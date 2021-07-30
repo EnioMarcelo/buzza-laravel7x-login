@@ -54,7 +54,7 @@
                 delay:5000,
                 fade:true,
                 icon:'fa fa-exclamation-triangle'
-            });Toasts
+            });
         });
     </script>
     @endif --}}
@@ -64,7 +64,7 @@
     @if ($message = Session::get('error'))
         <script type="text/javascript">
             $(function () {
-                $(document).('create', {
+                $(document).Toasts('create', {
                     title: 'ATENÇÃO...',
                     body: '{{ $message }}',
                     class: 'bg-danger toasts-width margin-bottom-5 margin-right-5',
