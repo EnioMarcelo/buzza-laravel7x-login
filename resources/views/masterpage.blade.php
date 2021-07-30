@@ -91,7 +91,9 @@
                     delay: 5000,
                     fade: true,
                     icon: 'fa fa-thumbs-up ',
-                    position: 'bottomRight'
+                    position: 'bottomRight',
+                    progressBar: true
+
                 });
             });
         </script>

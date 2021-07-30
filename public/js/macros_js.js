@@ -13,7 +13,7 @@ function mc_alert_toast_success(_message) {
         body: _message,
         class: 'bg-success toasts-width margin-bottom-5 margin-right-5',
         autohide: true,
-        delay: 2000,
+        delay: 3000,
         fade: true,
         icon: 'fa fa-thumbs-up ',
         position: 'bottomRight'
