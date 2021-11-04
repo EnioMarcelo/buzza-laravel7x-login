@@ -20,13 +20,15 @@
         <div class="row">
             <div class="col a-no-color">
                 <a href="" wire:click.prevent="set_screen('show')" wire:loading.class="disabled">
-                    <h2 style="margin-left: 10px;"><i class="{{ $title_icon }}" aria-hidden="true"></i> {{ $title_page }}</h2>
+                    <h2 style="margin-left: 10px;"><i class="{{ $title_icon }}"
+                                                      aria-hidden="true"></i> {{ $title_page }}</h2>
                 </a>
             </div>
 
             <div class="col">
                 <a class="btn btn-block btn-outline-primary col-md-7 col-lg-7 col-xl-6 m-auto"
-                   href="" wire:click.prevent="set_screen('add')" wire:loading.class="disabled"><i class="fa fa-plus"></i>
+                   href="" wire:click.prevent="set_screen('add')" wire:loading.class="disabled"><i
+                        class="fa fa-plus"></i>
                     Novo Cliente</a>
             </div>
 
@@ -137,7 +139,11 @@
 
     @if($type_screen == 'add' && $message_type !== 'danger')
 
-        @include('livewire.clientes-add')
+        @if(auth()->user()->profile->can('read'))
+            @include('livewire.clientes-add')
+        @endif
+
+
 
     @endif
 

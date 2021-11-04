@@ -36,7 +36,7 @@ Auth::routes();
 Route::group(['middleware' => ['auth','check_status_user']], function () {
 
     // Clientes
-    Route::group(['namespace' => 'Client', 'prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|Clientes - ALL|Clientes - ADD|Clientes - EDIT|Clientes - DEL|Clientes - SEARCH']], function () {
+    Route::group(['namespace' => 'Client', 'prefix' => 'clientes', 'as' => 'clientes.', 'middleware' => ['permission:Super Administrator|menu']], function () {
         //Route::get('/', 'ClientController@index')->name('cliente');
         //Route::get('/create', 'ClientController@create')->name('cliente.create');
         Route::get('/', [\App\Http\Livewire\ClientesShow::class, '__invoke'])->name('clientes');

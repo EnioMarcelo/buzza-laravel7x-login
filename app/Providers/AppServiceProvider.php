@@ -58,7 +58,7 @@ class AppServiceProvider extends ServiceProvider
                     'label' => Client::count(),
                     'label_color' => $_label_color,
                     'active' => ['cliente/*'],
-                    'can' => ['Super Administrator', 'Clientes - ALL', 'Clientes - SEARCH'],
+                    'can' => ['Super Administrator', 'menu', 'search'],
                 ]
 
             );
